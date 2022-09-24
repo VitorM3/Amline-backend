@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model activities {
+  id                 Int                  @id @default(autoincrement())
+  id_group           Int
+  name               String               @db.VarChar(50)
+  description        String?
+  status             status_activity?     @default(pending)
+  date_start         DateTime             @db.Date
+  date_end           DateTime             @db.Date
+  created_at         DateTime             @db.Time(6)
+  updated_at         DateTime?            @db.Time(6)
+  deleted_at         DateTime?            @db.Time(6)
+  groups             groups               @relation(fields: [id_group], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  members_activities members_activities[]
+}
+
+model groups {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(50)
+  id_leader     Int
+  created_at    DateTime        @db.Time(6)
+  updated_at    DateTime?       @db.Time(6)
+  deleted_at    DateTime?       @db.Time(6)
+  users         users           @relation(fields: [id_leader], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  activities    activities[]
+  members_group members_group[]
+}
+
+model members_activities {
+  id          Int        @id @default(autoincrement())
+  id_activity Int
+  id_member   Int
+  created_at  DateTime   @db.Time(6)
+  updated_at  DateTime?  @db.Time(6)
+  deleted_at  DateTime?  @db.Time(6)
+  activities  activities @relation(fields: [id_activity], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users      @relation(fields: [id_member], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model members_group {
+  id         Int       @id @default(autoincrement())
+  id_member  Int
+  id_group   Int
+  created_at DateTime  @db.Time(6)
+  updated_at DateTime? @db.Time(6)
+  deleted_at DateTime? @db.Time(6)
+  groups     groups    @relation(fields: [id_group], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users     @relation(fields: [id_member], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(80)
+  email              String               @db.VarChar(80)
+  password           String               @db.VarChar(300)
+  created_at         DateTime             @db.Time(6)
+  updated_at         DateTime?            @db.Time(6)
+  deleted_at         DateTime?            @db.Time(6)
+  groups             groups[]
+  members_activities members_activities[]
+  members_group      members_group[]
+}
+
+enum status_activity {
+  pending
+  inProgress
+  complete
+}
