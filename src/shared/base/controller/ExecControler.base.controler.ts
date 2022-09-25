@@ -3,20 +3,15 @@ import HttpError from "../domain/error/Error.base.error";
 import Controller from "./Controler.base.controller";
 
 export default class ExecController{
-    async execute(controller: Controller<any>){
+    async execute(controller: Controller<any>, params?: any){
         try {
-            const responseController = controller.handle()
-
-            if(responseController instanceof HttpError){
-                if(responseController.status == 500){
-                    console.error(responseController.message)
-                }
-                throw new HttpException(responseController.message, responseController.status)
-            }
+        return await controller.handle(params)
             
         } catch (error) {
-            console.error(error)
-            throw new HttpException(error.message, 500)
+            if(error.status == 500){
+                console.error(error.message)
+            }
+            throw new HttpException(error.message, error.status)
         }
     }
 }

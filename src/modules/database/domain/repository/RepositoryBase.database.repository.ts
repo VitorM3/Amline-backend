@@ -2,20 +2,7 @@ import ITableBase from "../interface/Table.database.interface";
 
 export class RepositoryBase<T>{
 
-    // SERIALIZE ONE
-    protected serializeGet(data: T extends ITableBase ? ITableBase : ITableBase){
-        try {
-            const newData = data;
-            delete newData.created_at;
-            delete newData.deleted_at;
-            delete newData.updated_at;
-            return newData;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    protected serializePost(data: T){
+    public serializePost(data: T){
         const newData: ITableBase = {
             ...data,
             created_at: new Date()
@@ -24,7 +11,7 @@ export class RepositoryBase<T>{
         return newData;
     }
 
-    protected serializeUpdate(data:T extends ITableBase ? ITableBase : ITableBase){
+    public serializeUpdate(data:T extends ITableBase ? ITableBase : ITableBase){
         const newData: ITableBase = {
             ...data,
             updated_at: new Date()
@@ -33,7 +20,7 @@ export class RepositoryBase<T>{
         return newData;
     }
 
-    protected serializeDelete(data: T extends ITableBase ? ITableBase : ITableBase){
+    public serializeDelete(data: T extends ITableBase ? ITableBase : ITableBase){
         const newData: ITableBase = {
             ...data,
             deleted_at: new Date()
@@ -53,19 +40,15 @@ export class RepositoryBase<T>{
         return dataSerialized
     }
 
-    protected async serializeMultipleGet(data: T[] extends ITableBase[] ? ITableBase[] : ITableBase[]){
-        return await this.serializeMultiple(data, this.serializeGet);
-    }
-
-    protected async serializeMultiplePost(data: T[]){
+    public async serializeMultiplePost(data: T[]){
         return await this.serializeMultiple(data, this.serializePost);
     }
 
-    protected async serializeMultipleUpdate(data: T[] extends ITableBase[] ? ITableBase[] : ITableBase[]){
+    public async serializeMultipleUpdate(data: T[] extends ITableBase[] ? ITableBase[] : ITableBase[]){
         return await this.serializeMultiple(data,this.serializeUpdate);
     }
 
-    protected async serializeMultipleDelete(data: T[] extends ITableBase[] ? ITableBase[] : ITableBase[]){
+    public async serializeMultipleDelete(data: T[] extends ITableBase[] ? ITableBase[] : ITableBase[]){
         return await this.serializeMultiple(data,this.serializeDelete);
     }
 
