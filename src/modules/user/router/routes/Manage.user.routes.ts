@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { UserServices } from "../../services/UserServices.service";
-import CreateUserRouteController from "./createUser.user.controller";
+import CreateUserRouteController from "./controllers/create-user/createUser.user.controller";
 
 @Injectable()
 export class ManageRoutesUser {
