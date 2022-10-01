@@ -1,5 +1,5 @@
 import { UserServices } from "../../../../services/UserServices.service";
-import {Post,Body, Injectable} from '@nestjs/common'
+import {Injectable} from '@nestjs/common'
 import { CreateUserDTO } from "../../../../domain/dto/createUser.user.dto";
 import Controller from "src/shared/base/controller/Controler.base.controller";
 import UserType from "../../../../domain/types/UserType.user.type";
@@ -7,23 +7,23 @@ import ErrorBaseError from "src/shared/base/domain/error/Error.base.error";
 import FieldNotFoundError from "src/shared/base/domain/error/FieldNotFound.base.error";
 
 @Injectable()
-export default class CreateUserRouteController extends Controller<Omit<UserType, 'password'>>{
+export default class CreateUserController extends Controller<Omit<UserType, 'password'>>{
     public constructor(
         private service: UserServices
     ){
         super()
     }
 
-    async handle(user?: UserType): Promise<Omit<UserType, "password"> | ErrorBaseError> {
+    async handle(user: CreateUserDTO): Promise<Omit<UserType, "password"> | ErrorBaseError> {
         try {
             this.verifyParams(user)
-            return await this.execService(user)
+            return await this.createUserService(user)
         } catch (error) {
             throw error;
         }
     }
 
-    public verifyParams(user?: UserType){
+    private verifyParams(user: CreateUserDTO){
         try {
             if(!user.email){
                 throw new FieldNotFoundError('email')
@@ -39,7 +39,7 @@ export default class CreateUserRouteController extends Controller<Omit<UserType,
         }
     }
 
-    public async execService(newUser: CreateUserDTO){
+    private async createUserService(newUser: CreateUserDTO){
         try {
             return await this.service.create
             .setNewUser(newUser)

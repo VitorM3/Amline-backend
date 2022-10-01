@@ -5,7 +5,7 @@ const ResponseCreateUser = () =>{
     return applyDecorators(
         ApiResponse({
             status:200,
-            description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso'
+            description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso, enviando os dados do usuário cadastrado',
         }),
         ApiResponse({
             status:404,

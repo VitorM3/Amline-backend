@@ -2,9 +2,9 @@ import HttpError from "src/shared/base/domain/error/Error.base.error";
 import InternalServerError from "src/shared/base/domain/error/Internal.base.error";
 import Service from "src/shared/base/service/Service.base.service";
 import crypt from "src/shared/utils/Cript.utils";
-import EmailExistError from "../domain/errors/EmailExistError.user.error";
-import UserType from "../domain/types/UserType.user.type";
-import UserProviders from "./providers/UserProviders.user.providers";
+import EmailExistError from "../../domain/errors/EmailExistError.user.error";
+import UserType from "../../domain/types/UserType.user.type";
+import UserProviders from "../UserProviders.user.providers";
 
 export class CreateUserService extends Service<Omit<UserType,'password'>> {
     private newUser: UserType

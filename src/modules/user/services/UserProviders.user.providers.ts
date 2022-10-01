@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import CreateUserProvider from "./create-user.user.provider";
-import { GetUserProvider } from "./get-user.user.provider";
+import CreateUserProvider from "./providers/create-user.user.provider";
+import { GetUserProvider } from "./providers/get-user.user.provider";
 
 @Injectable()
 export default class UserProviders {

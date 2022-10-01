@@ -83,6 +83,46 @@ export class GetUserProvider{
             throw error;
         }
     }
+    private createFilterWithLike(){
+        try {
+            const where: Prisma.usersWhereInput = {}
+
+            if(this.filterEmail){
+                where.email = {
+                    endsWith:this.filterEmail
+                };
+            }
+
+            if(this.filterName){
+                where.name = {
+                    endsWith:this.filterName
+                };
+            }
+
+            if(this.filterPassword){
+                where.password = {
+                    endsWith: this.filterPassword
+                };
+            }
+
+            if(this.filterCreated){
+                where.created_at = this.filterCreated;
+            }
+
+            if(this.filterDeleted){
+                where.deleted_at = this.filterDeleted;
+            }
+
+            if(this.filterId){
+                where.id = this.filterId;
+            }
+
+            return where;
+
+        } catch (error) {
+            throw error;
+        }
+    }
 
     /**
      * Procurar um usuário com base nos filtros passados
@@ -125,6 +165,52 @@ export class GetUserProvider{
 
 
             return users;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    /**
+     * Procurar um usuário com base nos filtros passados com um like
+     */
+    public async oneWithLike(){
+        try {
+            const where = this.createFilterWithLike();
+            const user = await this.repository.findFirst({where, select:{
+                name: true,
+                email: true,
+                id: true,
+                deleted_at: false,
+                created_at: false,
+                updated_at: false,
+                password: false
+                
+            }});
+
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    /**
+     * Procurar todos os usuários com base nos filtros com um like
+     */
+    public async manyWithLike(){
+        try {
+            const where = this.createFilterWithLike();
+            const user = await this.repository.findMany({where, select:{
+                name: true,
+                email: true,
+                id: true,
+                deleted_at: false,
+                created_at: false,
+                updated_at: false,
+                password: false
+                
+            }});
+
+            return user;
         } catch (error) {
             throw error;
         }
