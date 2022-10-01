@@ -1,4 +1,4 @@
-import { UserServices } from "../../../../services/UserServices.service";
+import { UserServices } from "../../../../logic/UserServices.service";
 import {Injectable} from '@nestjs/common'
 import { CreateUserDTO } from "../../../../domain/dto/createUser.user.dto";
 import Controller from "src/shared/base/controller/Controler.base.controller";

@@ -30,7 +30,7 @@ export default class GetUserByIdService extends Service<Omit<UserType, "password
         try {
             return await this.userProviders.get.setFilterId(this.idUser).one()
         } catch (error) {
-            throw new InternalServerError(error.message).sendError()
+            throw new InternalServerError().sendError()
         }
     }
 }

@@ -53,7 +53,7 @@ export class CreateUserService extends Service<Omit<UserType,'password'>> {
             if(error.status){
                 throw error
             }else{
-                throw new InternalServerError(error.message).sendError()
+                throw new InternalServerError().sendError()
             }
         }
     }
@@ -63,7 +63,7 @@ export class CreateUserService extends Service<Omit<UserType,'password'>> {
             user.password = crypt(user.password)
             return user;
         } catch (error) {
-            throw new InternalServerError(error.message)
+            throw new InternalServerError().sendError()
         }
     }
 
@@ -74,7 +74,7 @@ export class CreateUserService extends Service<Omit<UserType,'password'>> {
             .setNewUser(user)
             .one()
         } catch (error) {
-            throw new InternalServerError(error.message).sendError()
+            throw new InternalServerError().sendError()
         }
     }
 

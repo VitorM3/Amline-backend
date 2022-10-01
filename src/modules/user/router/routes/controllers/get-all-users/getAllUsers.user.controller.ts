@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GetAllUsersDTO } from "src/modules/user/domain/dto/getallUsers.user.dto";
 import UserType from "src/modules/user/domain/types/UserType.user.type";
-import { UserServices } from "src/modules/user/services/UserServices.service";
+import { UserServices } from "src/modules/user/logic/UserServices.service";
 import Controller from "src/shared/base/controller/Controler.base.controller";
 import ErrorBaseError from "src/shared/base/domain/error/Error.base.error";
 import { Pagination } from "src/shared/base/domain/types/Pagination.base.type";

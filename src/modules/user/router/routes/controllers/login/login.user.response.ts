@@ -1,12 +1,12 @@
 import { applyDecorators } from "@nestjs/common"
 import { ApiOperation, ApiResponse } from "@nestjs/swagger"
 
-const ResponseGetUserById = () =>{
+const ResponseLogin = () =>{
     return applyDecorators(
-        ApiOperation({summary:'Buscar apenas um usuário com base no id passado'}),
+        ApiOperation({summary:'Login de usuário'}),
         ApiResponse({
             status:200,
-            description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso, enviando os dados de um usuário especifico com base no id passado',
+            description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso, enviando os dados do usuário que realizou o login',
         }),
         ApiResponse({
             status:401,
@@ -19,4 +19,4 @@ const ResponseGetUserById = () =>{
     )
 }
 
-export default ResponseGetUserById
+export default ResponseLogin

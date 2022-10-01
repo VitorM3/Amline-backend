@@ -5,7 +5,7 @@ export default class InternalServerError extends SenderErrorHttp{
      * Classe para enviar erros http envolvendo o servidor
      * @param message Mensagem de erro
      */
-    public constructor(message: string){
-        super({message,status: 500})
+    public constructor(){
+        super({message:"Ocorreu um erro em nosso servidor",status: 500})
     }
 }
