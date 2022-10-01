@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PrismaService } from './modules/database/services/PrismaService.database.service';
+import {SwaggerTheme} from 'swagger-themes'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +14,9 @@ async function bootstrap() {
     .setVersion('0.1')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/doc', app, document);
+  const theme = new SwaggerTheme('v3');
+  const options = theme.getDefaultConfig('dark');
+  SwaggerModule.setup('api/doc', app, document,options);
   //======================================================================================
   // Prisma
   const prismaService = app.get(PrismaService);

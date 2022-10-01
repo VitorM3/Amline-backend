@@ -1,8 +1,9 @@
 import { applyDecorators } from "@nestjs/common"
-import { ApiResponse } from "@nestjs/swagger"
+import { ApiOperation, ApiResponse } from "@nestjs/swagger"
 
 const ResponseCreateUser = () =>{
     return applyDecorators(
+        ApiOperation({summary:'Cadastrar usuário'}),
         ApiResponse({
             status:200,
             description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso, enviando os dados do usuário cadastrado',

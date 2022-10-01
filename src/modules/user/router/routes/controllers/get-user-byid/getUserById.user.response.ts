@@ -1,12 +1,12 @@
 import { applyDecorators } from "@nestjs/common"
 import { ApiOperation, ApiResponse } from "@nestjs/swagger"
 
-const ResponseGetAllUsers = () =>{
+const ResponseGetUserById = () =>{
     return applyDecorators(
-        ApiOperation({summary:'Buscar todos os usuários'}),
+        ApiOperation({summary:'Buscar apenas um usuário com base no id passado'}),
         ApiResponse({
             status:200,
-            description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso, enviando os dados de todos os usuários cadastrados',
+            description: 'Esta resposta irá ocorrer se tudo houver ocorrido com sucesso, enviando os dados de um usuário especifico com base no id passado',
         }),
         ApiResponse({
             status:500,
@@ -15,4 +15,4 @@ const ResponseGetAllUsers = () =>{
     )
 }
 
-export default ResponseGetAllUsers
+export default ResponseGetUserById
