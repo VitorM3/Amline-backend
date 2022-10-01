@@ -26,13 +26,13 @@ export default class CreateUserController extends Controller<Omit<UserType, 'pas
     private verifyParams(user: CreateUserDTO){
         try {
             if(!user.email){
-                throw new FieldNotFoundError('email')
+                throw new FieldNotFoundError('email').sendError()
             }
             if(!user.name){
-                throw new FieldNotFoundError('nome')
+                throw new FieldNotFoundError('nome').sendError()
             }
             if(!user.password){
-                throw new FieldNotFoundError('senha')
+                throw new FieldNotFoundError('senha').sendError()
             }
         } catch (error) {
             throw error;

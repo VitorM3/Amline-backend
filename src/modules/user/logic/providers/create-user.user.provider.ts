@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, users } from "@prisma/client";
-import { RepositoryBase } from "src/modules/database/domain/repository/RepositoryBase.database.repository";
 import { PrismaService } from "src/modules/database/services/PrismaService.database.service";
 import UserType from "../../domain/types/UserType.user.type";
 
@@ -24,11 +23,6 @@ export default class CreateUserProvider {
         return this;
     }
 
-    // Getters
-    public getNewUser(){
-        return this.newUser;
-    }
-
     public getNewManyUser(){
         const users = this.newManyUser.map((user)=>{
             delete user.password
@@ -47,7 +41,8 @@ export default class CreateUserProvider {
             if(this.newUser == null){
                 throw new Error('Defina um usuário para realizar o seu cadastro')
             }
-            const newUser = new RepositoryBase().serializePost(this.newUser) as users;
+            this.newUser['created_at'] = new Date()
+            const newUser = this.newUser as users;
 
            const user =  await this.repository.create({data: newUser,select:{
                 name: true,
@@ -74,8 +69,9 @@ export default class CreateUserProvider {
                 throw new Error('Defina os usuários que deseja cadastrar')
             }
 
-            const newUsers = await new RepositoryBase()
-            .serializeMultiplePost(this.newManyUser) as unknown as users[];
+            const newUsers = this.newManyUser.map((user)=>{
+                user['created_at'] = new Date()
+            }) as unknown as users[]
 
             await this.repository.createMany({data: newUsers});
 

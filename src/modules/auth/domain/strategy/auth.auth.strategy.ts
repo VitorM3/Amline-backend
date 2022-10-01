@@ -12,9 +12,7 @@ export class AuthStrategy extends PassportStrategy(Strategy,'auth') {
             secretOrKey:"Batatinha,xD",
             jwtFromRequest:ExtractJwt.fromExtractors([(request:Request) => {
                 const data = request?.cookies["auth-cookie"];
-                console.log(data)
                 if(!data){
-                    console.log
                     return null;
                 }
                 return data.token

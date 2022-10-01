@@ -5,6 +5,7 @@ import CreateUserController from "./create-user/createUser.user.controller";
 import { GetAllUsersController } from "./get-all-users/getAllUsers.user.controller";
 import GetUserByIdController from "./get-user-byid/getUserById.user.controller";
 import { LoginController } from "./login/login.user.controller";
+import { UpdateUserController } from "./update-user/updateUser.user.controller";
 
 @Injectable()
 export class UserControllers {
@@ -12,6 +13,7 @@ export class UserControllers {
     public getAllUser: GetAllUsersController
     public getOneById: GetUserByIdController
     public login: LoginController
+    public update: UpdateUserController
     public constructor(
         private service: UserServices,
         @Inject(forwardRef(()=>AuthProviders))
@@ -21,5 +23,6 @@ export class UserControllers {
         this.getAllUser = new GetAllUsersController(this.service)
         this.getOneById = new GetUserByIdController(this.service)
         this.login = new LoginController(this.authProvider)
+        this.update = new UpdateUserController(this.service)
     }
 }

@@ -20,8 +20,12 @@ export class PostRouterUser extends Router{
     @Post('login')
     @UseGuards(AuthGuard('local'))
     @ResponseLogin()
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public async login(@Res({ passthrough: true }) res: Response, @Req() req: Request, @Body() user: LoginDTO){
+    public async login
+    (
+        @Res({ passthrough: true }) res: Response, 
+        @Req() req: Request, 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        @Body() user: LoginDTO){
         return await this.execute(this.userController.login,{res,req})
     }
 
