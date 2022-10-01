@@ -2,7 +2,7 @@ import { HttpException } from "@nestjs/common";
 import HttpError from "../domain/error/Error.base.error";
 import Controller from "./Controler.base.controller";
 
-export default class ExecController{
+export default class Router{
     async execute(controller: Controller<any>, params?: any){
         try {
         return await controller.handle(params)

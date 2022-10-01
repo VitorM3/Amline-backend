@@ -1,8 +1,8 @@
-import { UserServices } from "../../../../logic/UserServices.service";
+import { UserServices } from "../../logic/UserServices.service";
 import {Injectable} from '@nestjs/common'
-import { CreateUserDTO } from "../../../../domain/dto/createUser.user.dto";
+import { CreateUserDTO } from "../../domain/dto/createUser.user.dto";
 import Controller from "src/shared/base/controller/Controler.base.controller";
-import UserType from "../../../../domain/types/UserType.user.type";
+import UserType from "../../domain/types/UserType.user.type";
 import ErrorBaseError from "src/shared/base/domain/error/Error.base.error";
 import FieldNotFoundError from "src/shared/base/domain/error/FieldNotFound.base.error";
 

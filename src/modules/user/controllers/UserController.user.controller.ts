@@ -1,13 +1,13 @@
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import AuthProviders from "src/modules/auth/logic/AuthProvider.auth.provider";
-import { UserServices } from "../../logic/UserServices.service";
-import CreateUserController from "./controllers/create-user/createUser.user.controller";
-import { GetAllUsersController } from "./controllers/get-all-users/getAllUsers.user.controller";
-import GetUserByIdController from "./controllers/get-user-byid/getUserById.user.controller";
-import { LoginController } from "./controllers/login/login.user.controller";
+import { UserServices } from "../logic/UserServices.service";
+import CreateUserController from "./create-user/createUser.user.controller";
+import { GetAllUsersController } from "./get-all-users/getAllUsers.user.controller";
+import GetUserByIdController from "./get-user-byid/getUserById.user.controller";
+import { LoginController } from "./login/login.user.controller";
 
 @Injectable()
-export class ManageRoutesUser {
+export class UserControllers {
     public createUser: CreateUserController
     public getAllUser: GetAllUsersController
     public getOneById: GetUserByIdController
