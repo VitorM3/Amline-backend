@@ -60,7 +60,7 @@ export class GetAllUsersService extends Service<Pagination<Omit<UserType, "passw
             .setFilterName(this.name)
             .manyWithLike()
         } catch (error) {
-            throw new InternalServerError(error.message)
+            throw new InternalServerError(error.message).sendError()
         }
     }
 
@@ -78,7 +78,7 @@ export class GetAllUsersService extends Service<Pagination<Omit<UserType, "passw
            }
 
         } catch (error) {
-            throw new InternalServerError(error.message)
+            throw new InternalServerError(error.message).sendError()
         }
     }
 
