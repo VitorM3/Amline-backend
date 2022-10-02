@@ -4,14 +4,19 @@ import Service from "src/shared/base/service/Service.base.service";
 import crypt from "src/shared/utils/Cript.utils";
 import EmailExistError from "../../domain/errors/EmailExistError.user.error";
 import UserType from "../../domain/types/UserType.user.type";
-import UserProviders from "../UserProviders.user.providers";
+import CreateUserProvider from "../providers/create-user.user.provider";
+import { GetUserProvider } from "../providers/get-user.user.provider";
 
 export class CreateUserService extends Service<Omit<UserType,'password'>> {
     private newUser: UserType
+
+    private readonly getProvider: GetUserProvider
+    private readonly postProvider: CreateUserProvider
     public constructor(
-        private provider: UserProviders
     ){
         super();
+        this.getProvider = new GetUserProvider()
+        this.postProvider = new CreateUserProvider()
     }
 
     // Setters
@@ -42,7 +47,7 @@ export class CreateUserService extends Service<Omit<UserType,'password'>> {
 
     private async verifyIfEmailExist(email: string){
         try {
-            const emailExistAnyUser = await this.provider.get
+            const emailExistAnyUser = await this.getProvider
             .setFilterEmail(email)
             .one();
 
@@ -70,7 +75,7 @@ export class CreateUserService extends Service<Omit<UserType,'password'>> {
 
     private async createUser(user: UserType){
         try {
-            return await this.provider.post
+            return await this.postProvider
             .setNewUser(user)
             .one()
         } catch (error) {

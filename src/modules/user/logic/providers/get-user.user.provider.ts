@@ -8,7 +8,6 @@ export class GetUserProvider{
     private filterPassword: string;
     private filterName: string;
     private filterCreated: Date;
-    private filterDeleted: Date;
     private filterId: number;
     
     private repository: Prisma.usersDelegate<Prisma.RejectOnNotFound>
@@ -42,16 +41,14 @@ export class GetUserProvider{
         return this;
     }
 
-    setFilterDeleted(deleted: Date){
-        this.filterDeleted = deleted;
-        return this;
-    }
 
     //=================================================================
 
     private createFilter(){
         try {
-            const where: Prisma.usersWhereInput = {}
+            const where: Prisma.usersWhereInput = {
+                deleted_at:null
+            }
 
             if(this.filterEmail){
                 where.email = this.filterEmail;
@@ -69,10 +66,6 @@ export class GetUserProvider{
                 where.created_at = this.filterCreated;
             }
 
-            if(this.filterDeleted){
-                where.deleted_at = this.filterDeleted;
-            }
-
             if(this.filterId){
                 where.id = this.filterId;
             }
@@ -85,7 +78,9 @@ export class GetUserProvider{
     }
     private createFilterWithLike(){
         try {
-            const where: Prisma.usersWhereInput = {}
+            const where: Prisma.usersWhereInput = {
+                deleted_at:null
+            }
 
             if(this.filterEmail){
                 where.email = {
@@ -107,10 +102,6 @@ export class GetUserProvider{
 
             if(this.filterCreated){
                 where.created_at = this.filterCreated;
-            }
-
-            if(this.filterDeleted){
-                where.deleted_at = this.filterDeleted;
             }
 
             if(this.filterId){
@@ -163,7 +154,7 @@ export class GetUserProvider{
                 password: false,
             }})
 
-
+            console.log(users)
             return users;
         } catch (error) {
             throw error;
@@ -210,6 +201,7 @@ export class GetUserProvider{
                 
             }});
 
+            console.log(user)
             return user;
         } catch (error) {
             throw error;

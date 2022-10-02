@@ -5,17 +5,17 @@ import Service from "src/shared/base/service/Service.base.service";
 import crypt from "src/shared/utils/Cript.utils";
 import UserNotAuthError from "../../domain/errors/UserNotAuth.user.error";
 import UserType from "../../domain/types/UserType.user.type";
-import UserProviders from "../UserProviders.user.providers";
+import { GetUserProvider } from "../providers/get-user.user.provider";
 
 @Injectable()
 export class LoginService extends Service<Omit<UserType, "password"> | ErrorBaseError>{
     private email: string
     private password: string
 
-    public constructor(
-        private readonly userProviders: UserProviders
-    ){
+    private readonly getProvider: GetUserProvider
+    public constructor(){
         super()
+        this.getProvider = new GetUserProvider()
     }
 
     setEmail(email: string){
@@ -60,7 +60,7 @@ export class LoginService extends Service<Omit<UserType, "password"> | ErrorBase
 
     private async validadeUser(){
         try {
-            const userIsValid = await this.userProviders.get
+            const userIsValid = await this.getProvider
             .setFilterEmail(this.email)
             .setFilterPassword(this.password)
             .one()

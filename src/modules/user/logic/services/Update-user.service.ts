@@ -3,17 +3,20 @@ import InternalServerError from "src/shared/base/domain/error/Internal.base.erro
 import Service from "src/shared/base/service/Service.base.service";
 import EmailExistError from "../../domain/errors/EmailExistError.user.error";
 import UserType from "../../domain/types/UserType.user.type";
-import UserProviders from "../UserProviders.user.providers";
+import { GetUserProvider } from "../providers/get-user.user.provider";
+import UpdateUserProvider from "../providers/update-user.user.provider";
 
 export default class UpdateUserService extends Service<Omit<UserType, "password">>{
     private name: string;
     private email: string;
     private id: number
 
-    public constructor(
-        private readonly userProvider: UserProviders
-    ){
+    private readonly getProvider: GetUserProvider
+    private readonly updateProvider: UpdateUserProvider
+    public constructor(){
         super()
+        this.getProvider = new GetUserProvider()
+        this.updateProvider = new UpdateUserProvider()
     }
 
     setName(name: string){
@@ -49,7 +52,7 @@ export default class UpdateUserService extends Service<Omit<UserType, "password"
 
     private async verifyIfEmailAlreadyExist(){
         try {
-            const emailExist = await this.userProvider.get
+            const emailExist = await this.getProvider
             .setFilterEmail(this.email)
             .one()
             console.log(emailExist)
@@ -67,7 +70,7 @@ export default class UpdateUserService extends Service<Omit<UserType, "password"
 
     private async updateUserData(){
         try {
-            return await this.userProvider.update
+            return await this.updateProvider
             .setChangeEmail(this.email)
             .setChangeName(this.name)
             .setWhereIdUser(this.id)

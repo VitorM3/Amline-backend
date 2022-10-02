@@ -3,7 +3,7 @@ import { Pagination } from "src/shared/base/domain/types/Pagination.base.type";
 import Service from "src/shared/base/service/Service.base.service";
 import createPagination from "src/shared/utils/createPagination.utils";
 import UserType from "../../domain/types/UserType.user.type";
-import UserProviders from "../UserProviders.user.providers";
+import { GetUserProvider } from "../providers/get-user.user.provider";
 
 export class GetAllUsersService extends Service<Pagination<Omit<UserType, "password">[]>> {
     private perPage: number
@@ -11,10 +11,11 @@ export class GetAllUsersService extends Service<Pagination<Omit<UserType, "passw
     private email: string;
     private page: number;
 
-    public constructor(
-        private providers: UserProviders
-    ){
+    private readonly getProvider: GetUserProvider
+
+    public constructor(){
         super()
+        this.getProvider = new GetUserProvider()
     }
 
     // SETTERS
@@ -55,7 +56,7 @@ export class GetAllUsersService extends Service<Pagination<Omit<UserType, "passw
 
     private async getAllUsers(){
         try {
-            return await this.providers.get
+            return await this.getProvider
             .setFilterEmail(this.email)
             .setFilterName(this.name)
             .manyWithLike()
