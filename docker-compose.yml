@@ -1,0 +1,27 @@
+version: '3'
+services:
+  api-amline:
+    container_name: api-amline
+    build: ./api
+    ports:
+      - 5000:5000
+      
+    depends_on:
+      - db-amline
+    links:
+      - db-amline
+
+  db-amline:
+    container_name: db-amline
+    restart: always
+    image: postgres:14.1-alpine
+    ports:
+      - 5432:5432
+    volumes: 
+      - db-imsure:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=#VLGMR1010SV
+      - POSTGRES_USER=amline
+volumes:
+    db-imsure:
+      driver: local
