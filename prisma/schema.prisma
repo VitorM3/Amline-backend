@@ -25,11 +25,9 @@ model activities {
 model groups {
   id            Int             @id @default(autoincrement())
   name          String          @db.VarChar(50)
-  id_leader     Int
   created_at    DateTime        @db.Time(6)
   updated_at    DateTime?       @db.Time(6)
   deleted_at    DateTime?       @db.Time(6)
-  users         users           @relation(fields: [id_leader], references: [id], onDelete: NoAction, onUpdate: NoAction)
   activities    activities[]
   members_group members_group[]
 }
@@ -52,6 +50,7 @@ model members_group {
   created_at DateTime  @db.Time(6)
   updated_at DateTime? @db.Time(6)
   deleted_at DateTime? @db.Time(6)
+  isadmin    Boolean
   groups     groups    @relation(fields: [id_group], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users      users     @relation(fields: [id_member], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -64,7 +63,6 @@ model users {
   created_at         DateTime             @db.Time(6)
   updated_at         DateTime?            @db.Time(6)
   deleted_at         DateTime?            @db.Time(6)
-  groups             groups[]
   members_activities members_activities[]
   members_group      members_group[]
 }
