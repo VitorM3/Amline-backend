@@ -18,10 +18,10 @@ services:
     ports:
       - 5432:5432
     volumes: 
-      - db-imsure:/var/lib/postgresql/data
+      - db-amline:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=#VLGMR1010SV
+      - POSTGRES_PASSWORD=VLGMR1010SV
       - POSTGRES_USER=amline
 volumes:
-    db-imsure:
+    db-amline:
       driver: local
