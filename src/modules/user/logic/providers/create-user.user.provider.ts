@@ -42,7 +42,6 @@ export default class CreateUserProvider {
                 throw new Error('Defina um usuário para realizar o seu cadastro')
             }
             const newUser = this.newUser as users;
-            newUser['created_at'] = new Date()
 
            const user =  await this.repository.create({data: newUser,select:{
                 name: true,
@@ -70,9 +69,7 @@ export default class CreateUserProvider {
                 throw new Error('Defina os usuários que deseja cadastrar')
             }
 
-            const newUsers = this.newManyUser.map((user)=>{
-                user['created_at'] = new Date()
-            }) as unknown as users[]
+            const newUsers = this.newManyUser as users[]
 
             await this.repository.createMany({data: newUsers});
 

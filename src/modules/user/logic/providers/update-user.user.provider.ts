@@ -65,8 +65,6 @@ export default class UpdateUserProvider {
     async one(){
         try {
             const newUser = this.createDataToChange()
-
-            newUser.updated_at = new Date()
         
             return await this.repository.update({data: newUser,where:{id: this.whereIdUser}, select:{
                 id: true,
