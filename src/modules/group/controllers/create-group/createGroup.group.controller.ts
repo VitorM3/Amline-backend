@@ -38,7 +38,7 @@ export class CreateGroupController extends Controller<GroupType>{
         }
     }
 
-    private async createGroupService(group: GroupType){
+    private async createGroupService(group: Omit<GroupType,'code'>){
         try {
             return await this.groupService.create
             .setNewGroup(group)

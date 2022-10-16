@@ -25,6 +25,7 @@ model activities {
 model groups {
   id            Int             @id @default(autoincrement())
   name          String          @db.VarChar(50)
+  code          String          @db.VarChar(25)
   created_at         DateTime? @default(now())
   updated_at         DateTime? @updatedAt
   deleted_at         DateTime?            @db.Date

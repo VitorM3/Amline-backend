@@ -31,6 +31,7 @@ export default class CreateGroupProvider{
             return await this.repository.create({data: newGroup, select:{
                 name: true,
                 id: true,
+                code: true,
                 created_at: false,
                 updated_at: false,
                 deleted_at: false,
