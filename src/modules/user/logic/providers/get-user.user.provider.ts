@@ -84,19 +84,19 @@ export class GetUserProvider{
 
             if(this.filterEmail){
                 where.email = {
-                    endsWith:this.filterEmail
+                    startsWith:this.filterEmail
                 };
             }
 
             if(this.filterName){
                 where.name = {
-                    endsWith:this.filterName
+                    startsWith:this.filterName
                 };
             }
 
             if(this.filterPassword){
                 where.password = {
-                    endsWith: this.filterPassword
+                    startsWith: this.filterPassword
                 };
             }
 
