@@ -1,4 +1,4 @@
-import { Body, Post } from "@nestjs/common";
+import { Body, Post, Request } from "@nestjs/common";
 import Router from "src/shared/base/controller/ExecControler.base.controler";
 import GroupControllers from "../../controllers/GroupController.group.controller";
 import { CreateGroupDTO } from "../../domain/dto/CreateGroup.group.dto";
@@ -14,7 +14,7 @@ export default class PostRouterGroup extends Router{
 
 
     @Post()
-    public async create(@Body() {name}: CreateGroupDTO){
-        return await this.execute(this.groupController.create,{name})
+    public async create(@Body() {name}: CreateGroupDTO, @Request() req: Request){
+        return await this.execute(this.groupController.create,{name,req})
     }
 }

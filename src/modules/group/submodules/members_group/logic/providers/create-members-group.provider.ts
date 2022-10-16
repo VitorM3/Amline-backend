@@ -32,12 +32,15 @@ export default class CreateMemberGroupProvider{
 
     private async serializeObjectMembersGroup(idsMembers: number[], isAdmin: boolean){
         const membersInGroupWithoutCluster: MembersGroupType[] = idsMembers.map((idMember)=>{
-            return {
-                id: null,
+            const newMembersInGroup =  {
+                id: undefined,
                 id_group: this.idGroup,
                 id_member: idMember,
                 isadmin: isAdmin
             }
+            newMembersInGroup['created_at'] = new Date()
+
+            return newMembersInGroup;
         })
         const membersInGroup = await Promise.all(membersInGroupWithoutCluster)
 
@@ -47,12 +50,12 @@ export default class CreateMemberGroupProvider{
     private async createObjectToCreateMembersGroup(){
         try {
             const membersAdminInGroup = await this.serializeObjectMembersGroup(
-                this.idsMembersAdmin,
+                this.idsMembersAdmin ?? [],
                 true
             )
             
             const membersDefaultInGroup = await this.serializeObjectMembersGroup(
-                this.idsMemberDefault,
+                this.idsMemberDefault ?? [],
                 false
             )
 
@@ -75,6 +78,7 @@ export default class CreateMemberGroupProvider{
 
             return newMembersInGroup
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }

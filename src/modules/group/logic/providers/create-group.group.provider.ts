@@ -27,6 +27,8 @@ export default class CreateGroupProvider{
     public async one(){
         try {
             const newGroup = this.group as groups
+            newGroup['created_at'] = new Date()
+            
             return await this.repository.create({data: newGroup, select:{
                 name: true,
                 id: true,
@@ -35,13 +37,16 @@ export default class CreateGroupProvider{
                 deleted_at: false,
             }})
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
 
     public async many(){
         try {
-            const newGroups = this.multipleGroups as groups[]
+            const newGroups =  this.multipleGroups.map((group)=>{
+                group['created_at'] = new Date()
+            }) as unknown as groups[]
 
             return await this.repository.createMany({data: newGroups})
         } catch (error) {

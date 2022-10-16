@@ -42,6 +42,7 @@ export default class CreateUserProvider {
                 throw new Error('Defina um usuário para realizar o seu cadastro')
             }
             const newUser = this.newUser as users;
+            newUser['created_at'] = new Date()
 
            const user =  await this.repository.create({data: newUser,select:{
                 name: true,
@@ -55,6 +56,7 @@ export default class CreateUserProvider {
 
             return user;
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }

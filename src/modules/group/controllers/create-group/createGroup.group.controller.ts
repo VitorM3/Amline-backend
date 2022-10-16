@@ -23,6 +23,7 @@ export class CreateGroupController extends Controller<GroupType>{
     
             return newGroup;
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
@@ -30,8 +31,9 @@ export class CreateGroupController extends Controller<GroupType>{
     private getIdOfLoggedUser(req: Request){
         try {
             const idLoggedUser = req.user['id']
-            return parseInt(idLoggedUser)
+            return idLoggedUser
         } catch (error) {
+            console.log(error)
             throw new InternalServerError().sendError()
         }
     }
@@ -42,6 +44,7 @@ export class CreateGroupController extends Controller<GroupType>{
             .setNewGroup(group)
             .execute() as GroupType
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
@@ -53,6 +56,7 @@ export class CreateGroupController extends Controller<GroupType>{
             .setNewMembersIdAdmin([userId])
             .execute()
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
