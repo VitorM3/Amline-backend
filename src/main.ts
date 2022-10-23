@@ -20,9 +20,9 @@ async function bootstrap() {
 
 function swaggerConfig(app: INestApplication){
   const config = new DocumentBuilder()
-    .setTitle('Nagacabros')
+    .setTitle('Amline-api')
     .setDescription('Documentação da API de agendamentos e gerenciamentos de atividades')
-    .setVersion('0.1')
+    .setVersion('0.2')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   const theme = new SwaggerTheme('v3');
